@@ -9,7 +9,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const response = await fetch('http://localhost:8000/api/v1/login', {
+    const response = await fetch('https://bonbon-for-everyone.herokuapp.com/api/v1/login', {
         method: 'POST',
         headers: { 'Content-type': 'application/json' },
         credentials: 'include',
