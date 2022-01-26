@@ -14,17 +14,27 @@ const Register: NextPage = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
 
-        await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register`, {
-            method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({
-                name,
-                username,
-                password
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/register`, {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json' },
+                body: JSON.stringify({
+                    name,
+                    username,
+                    password
+                })
             })
-        })
+            const resJson = await response.json()
+            if (!resJson.id) {
+                alert('Username is taken, please try another username.')
+            } else {
+                await router.push('/login')
+            }
+        } catch (err) {
+            console.log(err)
+            alert('There was an error, please try again..')
+        }
 
-        await router.push('/login')
     }
 
 
