@@ -30,12 +30,12 @@ const Register: NextPage = () => {
 
     return (
         <Layout>
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="form-signin">
                 <h1 className="h3 mb-3 fw-normal">Please register</h1>
 
-                <input className="form-control" placeholder="Name" required onChange={e => setName(e.target.value)} />
-                <input className="form-control" placeholder="Username" required onChange={e => setUsername(e.target.value)} />
-                <input type="password" className="form-control" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
+                <input className="form-control my-1" placeholder="Profile name" required onChange={e => setName(e.target.value)} />
+                <input className="form-control my-1" placeholder="Username for login" required onChange={e => setUsername(e.target.value)} />
+                <input type="password" className="form-control my-1" placeholder="Password for login" required onChange={e => setPassword(e.target.value)} />
                 <button className="w-100 btn btn-lg btn-primary" type="submit">Submit</button>
             </form>
         </Layout>
