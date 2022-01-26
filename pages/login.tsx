@@ -3,6 +3,7 @@ import cookie from 'js-cookie'
 import { useRouter } from 'next/router';
 import React, { SyntheticEvent, useState } from 'react';
 import Layout from '../layouts/Layout';
+import axios from 'axios';
 
 const Login: NextPage = () => {
 
@@ -13,29 +14,22 @@ const Login: NextPage = () => {
 
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault()
-        const response = await fetch(`api/auth/login`, {
-            method: 'GET',
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/login`, {
+            method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            credentials: 'include'
+            credentials: 'include',
+            body: JSON.stringify({
+                username,
+                password
+            })
         })
-        const resJson = await response.json()
-        console.log('resJson: ', resJson)
-        // const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/login`, {
-        //     method: 'POST',
-        //     headers: { 'Content-type': 'application/json' },
-        //     credentials: 'include',
-        //     body: JSON.stringify({
-        //         username,
-        //         password
-        //     })
-        // })
 
-        // if (response.ok) {
-        //     await cookie.set('user', username)
-        //     await router.push('/')
-        // } else {
-        //     alert('Incorrect username or password')
-        // }
+        if (response.ok) {
+            await cookie.set('user', username)
+            await router.push('/')
+        } else {
+            alert('Incorrect username or password')
+        }
     }
 
     return (
