@@ -1,9 +1,8 @@
 import type { NextPage } from 'next'
 import cookie from 'js-cookie'
-import { useRouter } from 'next/router';
-import React, { SyntheticEvent, useState } from 'react';
-import Layout from '../layouts/Layout';
-import axios from 'axios';
+import { useRouter } from 'next/router'
+import React, { SyntheticEvent, useState } from 'react'
+import Layout from '../layouts/Layout'
 
 const Login: NextPage = () => {
 
@@ -43,6 +42,6 @@ const Login: NextPage = () => {
             </form>
         </Layout>
     )
-};
+}
 
-export default Login;
+export default Login

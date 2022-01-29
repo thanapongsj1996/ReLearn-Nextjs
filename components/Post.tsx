@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 type Props = { post: any, name?: string, canBeDeleted?: boolean }
 
@@ -74,4 +74,4 @@ const Post = ({ post, name, canBeDeleted }: Props) => {
     )
 }
 
-export default Post;
+export default Post

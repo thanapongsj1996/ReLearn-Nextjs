@@ -1,8 +1,8 @@
-import Head from 'next/head';
+import Head from 'next/head'
 import cookie from 'js-cookie'
-import React, { FunctionComponent } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import React, { FunctionComponent } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 type Props = {
     children: any,
@@ -100,4 +100,4 @@ const Layout: FunctionComponent<Props> = (props) => {
     </>
 }
 
-export default Layout;
+export default Layout
