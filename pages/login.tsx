@@ -16,15 +16,17 @@ const Login: NextPage = () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/login`, {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            credentials: 'include',
             body: JSON.stringify({
                 username,
                 password
             })
         })
 
+
+
         if (response.ok) {
-            await cookie.set('user', username)
+            const res = await response.json()
+            await cookie.set('token', res.jwt)
             await router.push('/')
         } else {
             alert('Incorrect username or password')

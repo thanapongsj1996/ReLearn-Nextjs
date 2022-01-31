@@ -19,17 +19,15 @@ const Home: NextPage = () => {
   }, [])
 
   const setAuthStatus = async () => {
-    const user = await cookie.get('user')
-    if (user && user !== '') {
+    const token = await cookie.get('token')
+    if (token && token !== '') {
       setAuth(true)
     }
   }
 
   const getAllPosts = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts`, {
-        credentials: 'include'
-      })
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts`)
       const postsJson = await response.json() as Post[]
       setPosts(postsJson)
     } catch (e) {

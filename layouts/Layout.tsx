@@ -13,27 +13,35 @@ const Layout: FunctionComponent<Props> = (props) => {
 
     const router = useRouter()
     const logout = async () => {
+        const token = await cookie.get('token')
         await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/logout`, {
             method: 'POST',
-            headers: { 'Content-type': 'application/json' },
-            credentials: 'include'
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
+            }
         })
 
-        await cookie.remove('user')
+        await cookie.remove('token')
         await router.push('/login')
     }
 
     const createPost = async () => {
         const text = prompt('Please input something..')
         if (text) {
+            const token = await cookie.get('token')
             const resposne = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts`, {
                 method: 'POST',
-                headers: { 'Content-type': 'application/json' },
-                credentials: 'include',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
+                },
                 body: JSON.stringify({ body: text })
             })
             const resJson = await resposne.json()
-            if (!resJson.error) {
+            if (resJson.id) {
                 alert('Your post is added')
                 location.reload()
             } else {

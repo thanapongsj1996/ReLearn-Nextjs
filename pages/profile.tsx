@@ -27,7 +27,7 @@ const Profile: NextPage = () => {
     }, [])
 
     const setAuthStatus = async () => {
-        const user = await cookie.get('user')
+        const user = await cookie.get('token')
         if (user && user !== '') {
             setAuth(true)
         } else {
@@ -37,8 +37,13 @@ const Profile: NextPage = () => {
 
     const getAllPosts = async () => {
         try {
+            const token = await cookie.get('token')
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/user`, {
-                credentials: 'include'
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
+                }
             })
             const resJson = await response.json()
 
@@ -49,8 +54,7 @@ const Profile: NextPage = () => {
                 name: resJson.name
             })
 
-            const user = await cookie.get('user')
-            if (user && user !== '') {
+            if (token && token !== '') {
                 setAuth(true)
             }
         } catch (e) {

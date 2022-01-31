@@ -1,4 +1,5 @@
 import React from 'react'
+import cookie from 'js-cookie'
 
 type Props = { post: any, name?: string, canBeDeleted?: boolean }
 
@@ -13,9 +14,15 @@ const Post = ({ post, name, canBeDeleted }: Props) => {
     const onDelete = async () => {
         const isConfirm = confirm('Do you want to delete this post?')
         if (isConfirm) {
+            const token = await cookie.get('token')
             const response = await fetch(`${process.env.NEXT_PUBLIC_API_ENDPOINT}/posts/${post.id}`, {
-                credentials: 'include',
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token,
+                },
             })
 
             if (response.ok) {
